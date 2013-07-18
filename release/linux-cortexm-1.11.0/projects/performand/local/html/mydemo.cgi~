@@ -2,7 +2,7 @@
 echo "Content-type: text/html"
 echo ""
 echo ""
-./read_humtemp>ps.txt
+.read_humtemp>ps.txt
 date>date.txt
 
 # picture

@@ -115,11 +115,12 @@ been enabled, more detailed usage information will also be available.</p>
 <p>Currently available applets include:</p>
 <pre>
         [, [[, cat, chmod, chown, cp, cttyhack, date, df, dnsdomainname,
-        echo, fdisk, flash_eraseall, flashcp, ftpget, ftpput, getty, halt,
-        hostname, httpd, hush, ifconfig, init, kill, ln, login, ls, mkdir,
-        mount, mv, netstat, nslookup, ntpd, ping, poweroff, ps, pwd, reboot,
-        rm, route, sh, sleep, stty, telnet, telnetd, test, time, traceroute,
-        udhcpc, umount, vi, wc, wget</pre>
+        echo, fdisk, flash_eraseall, flashcp, ftpd, ftpget, ftpput, getty,
+        halt, hostname, httpd, hush, ifconfig, init, insmod, kill, ln,
+        login, ls, lsmod, mkdir, modinfo, modprobe, mount, mv, netstat,
+        nslookup, ntpd, ping, poweroff, ps, pwd, reboot, rm, rmmod, route,
+        sh, sleep, stty, telnet, telnetd, test, time, traceroute, udhcpc,
+        umount, vi, wc, wget</pre>
 <p>
 </p>
 <hr />
@@ -267,6 +268,25 @@ Starting interactive shell from boot shell script:</p>
 <pre>
         -v      Verbose</pre>
 </dd>
+<dt><strong><a name="ftpd" class="item"><strong>ftpd</strong></a></strong></dt>
+
+<dd>
+<p>ftpd [-wvS] [-t N] [-T N] [DIR]</p>
+<p>Anonymous FTP server</p>
+<p>ftpd should be used as an inetd service.
+ftpd's line for inetd.conf:
+	21 stream tcp nowait root ftpd ftpd /files/to/serve
+It also can be ran from tcpsvd:</p>
+<pre>
+        tcpsvd -vE 0.0.0.0 21 ftpd /files/to/serve</pre>
+<p>Options:</p>
+<pre>
+        -w      Allow upload
+        -v      Log to stderr
+        -S      Log to syslog
+        -t,-T   Idle and absolute timeouts
+        DIR     Change root to this directory</pre>
+</dd>
 <dt><strong><a name="ftpget" class="item"><strong>ftpget</strong></a></strong></dt>
 
 <dd>
@@ -372,6 +392,12 @@ or httpd -d/-e STRING</p>
 <p>init</p>
 <p>Init is the parent of all processes</p>
 </dd>
+<dt><strong><a name="insmod" class="item"><strong>insmod</strong></a></strong></dt>
+
+<dd>
+<p>insmod FILE [symbol=value]...</p>
+<p>Load the specified kernel modules into the kernel</p>
+</dd>
 <dt><strong><a name="kill" class="item"><strong>kill</strong></a></strong></dt>
 
 <dd>
@@ -438,6 +464,12 @@ or httpd -d/-e STRING</p>
         -X      Sort by extension
         -h      List sizes in human readable format (1K 243M 2G)</pre>
 </dd>
+<dt><strong><a name="lsmod" class="item"><strong>lsmod</strong></a></strong></dt>
+
+<dd>
+<p>lsmod</p>
+<p>List the currently loaded kernel modules</p>
+</dd>
 <dt><strong><a name="mkdir" class="item"><strong>mkdir</strong></a></strong></dt>
 
 <dd>
@@ -447,6 +479,32 @@ or httpd -d/-e STRING</p>
 <pre>
         -m      Mode
         -p      No error if exists; make parent directories as needed</pre>
+</dd>
+<dt><strong><a name="modinfo" class="item"><strong>modinfo</strong></a></strong></dt>
+
+<dd>
+<p>modinfo [-adlp0] [-F keyword] MODULE</p>
+<p>Options:</p>
+<pre>
+        -a              Shortcut for '-F author'
+        -d              Shortcut for '-F description'
+        -l              Shortcut for '-F license'
+        -p              Shortcut for '-F parm'
+        -F keyword      Keyword to look for
+        -0              Separate output with NULs</pre>
+</dd>
+<dt><strong><a name="modprobe" class="item"><strong>modprobe</strong></a></strong></dt>
+
+<dd>
+<p>modprobe [-alrqvs] MODULE [symbol=value]...</p>
+<p>Options:</p>
+<pre>
+        -a      Load multiple MODULEs
+        -l      List (MODULE is a pattern)
+        -r      Remove MODULE (stacks) or do autoclean
+        -q      Quiet
+        -v      Verbose
+        -s      Log to syslog</pre>
 </dd>
 <dt><strong><a name="mount" class="item"><strong>mount</strong></a></strong></dt>
 
@@ -582,6 +640,17 @@ optionally using a specified DNS server</p>
         -i      Always prompt before removing
         -f      Never prompt
         -R,-r   Recurse</pre>
+</dd>
+<dt><strong><a name="rmmod" class="item"><strong>rmmod</strong></a></strong></dt>
+
+<dd>
+<p>rmmod [OPTIONS] [MODULE]...</p>
+<p>Unload the specified kernel modules from the kernel</p>
+<p>Options:</p>
+<pre>
+        -w      Wait until the module is no longer used
+        -f      Force unloading
+        -a      Remove all unused modules (recursively)</pre>
 </dd>
 <dt><strong><a name="route" class="item"><strong>route</strong></a></strong></dt>
 

@@ -9,10 +9,6 @@ mount -o nolock,rsize=1024 192.168.0.100:/home/rbrtbrehm/pfd/release/linux-corte
 ifconfig lo 127.0.0.1
 # ifconfig eth0 192.168.0.100
 
-echo "Mounting NAND drive"
-mkdir /m
-mount -t jffs2 /dev/mtdblock2 /m
-
 echo "hih6130: Humidity and Temperature sensor driver."
 insmod hih6130.ko
 

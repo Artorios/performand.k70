@@ -146,7 +146,6 @@ slink /bin/getty busybox 777 0 0
 slink /bin/insmod busybox 777 0 0
 slink /bin/rmmod busybox 777 0 0
 slink /bin/lsmod busybox 777 0 0
-slink /bin/ftpd busybox 777 0 0 
 
 dir /usr/share 755 0 0
 dir /usr/share/udhcpc 755 0 0

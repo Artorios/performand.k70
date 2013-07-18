@@ -1,7 +1,7 @@
 # Makefile
 
 SAMPLE		:= performand
-CUSTOM_APPS	:= driver/humidity apps
+CUSTOM_APPS	:= driver\humidity apps
 
 include ../Rules.make
 

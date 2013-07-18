@@ -53,6 +53,7 @@ linux		: $(SAMPLE).$(KERNEL_IMAGE)
 
 _install	:
 	cp -f $(SAMPLE).$(KERNEL_IMAGE) /tftpboot
+	rm /tftpboot/myimage.$(KERNEL_IMAGE)
 	ln -s /tftpboot/$(SAMPLE).$(KERNEL_IMAGE) /tftpboot/myimage.$(KERNEL_IMAGE)
 
 $(CUSTOM_APPS)	:
