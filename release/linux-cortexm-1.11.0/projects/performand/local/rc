@@ -5,19 +5,20 @@ mount -t devpts none /dev/pts
 # To do NFS-mount of a development host directory for your project,
 # replace the IP and host directory in the line below with your
 # values matching your local settings
-mount -o nolock,rsize=1024 192.168.0.100:/home/rbrtbrehm/pfd/release/linux-cortexm-1.11.0/projects/performand /mnt
+#mount -o nolock,rsize=1024 192.168.0.100:/home/rbrtbrehm/pfd/release/linux-cortexm-1.11.0/projects/performand /mnt
+mount -o nolock, rsize=1024 192.168.1.2:/home/rasmus/performand.k70/release/linux-cortexm-1.11.0/projects/performand /mnt
 ifconfig lo 127.0.0.1
 # ifconfig eth0 192.168.0.100
 
 echo "Mounting NAND drive"
-mkdir /m
-mount -t jffs2 /dev/mtdblock2 /m
+mkdir /mnt/nand
+mount -t jffs2 /dev/mtdblock2 /mnt/nand
 
 echo "hih6130: Humidity and Temperature sensor driver."
-insmod hih6130.ko
+insmod /usr/share/hih6130.ko
 
 echo "Preparing cgi appliaction"
-cp read_humtemp /httpd/html
+cp /usr/bin/read_humtemp /httpd/html
 
 echo "Starting HTML server."
 httpd -h /httpd/html

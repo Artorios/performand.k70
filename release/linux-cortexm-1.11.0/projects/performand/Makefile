@@ -1,7 +1,7 @@
 # Makefile
 
 SAMPLE		:= performand
-CUSTOM_APPS	:= driver/humidity apps
+CUSTOM_APPS	:= driver/humidity apps/i2capp
 
 include ../Rules.make
 

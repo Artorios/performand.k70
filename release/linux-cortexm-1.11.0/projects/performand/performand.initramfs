@@ -157,7 +157,7 @@ slink /usr/bin/[[ ../../bin/busybox 777 0 0
 
 dir /mnt 755 0 0
 
-file /hih6130.ko ${INSTALL_ROOT}/projects/${SAMPLE}/driver/humidity/hih6130.ko 755 0 0
-file /read_humtemp ${INSTALL_ROOT}/projects/${SAMPLE}/apps/i2capp 755 0 0
+file /usr/share/hih6130.ko ${INSTALL_ROOT}/projects/${SAMPLE}/driver/humidity/hih6130.ko 755 0 0
+file /usr/bin/read_humtemp ${INSTALL_ROOT}/projects/${SAMPLE}/apps/i2capp/i2capp 755 0 0
 
 nod /dev/humidity 0600 0 0 c 166 0
