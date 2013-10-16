@@ -114,23 +114,53 @@ been enabled, more detailed usage information will also be available.</p>
 <h1><a name="commands">COMMANDS</a></h1>
 <p>Currently available applets include:</p>
 <pre>
-        [, [[, cat, chmod, chown, cp, cttyhack, date, df, dnsdomainname,
-        echo, fdisk, flash_eraseall, flashcp, ftpd, ftpget, ftpput, getty,
-        halt, hostname, httpd, hush, ifconfig, init, insmod, kill, ln,
-        login, ls, lsmod, mkdir, modinfo, modprobe, mount, mv, netstat,
-        nslookup, ntpd, ping, poweroff, ps, pwd, reboot, rm, rmmod, route,
-        sh, sleep, stty, telnet, telnetd, test, time, traceroute, udhcpc,
-        umount, vi, wc, wget</pre>
+        [, [[, awk, cal, cat, chat, chmod, chown, cp, cttyhack, cut, date,
+        df, dmesg, dnsdomainname, echo, egrep, fdisk, fgrep, flash_eraseall,
+        flashcp, ftpd, ftpget, ftpput, getty, grep, halt, hostname, httpd,
+        hush, ifconfig, init, insmod, kill, ln, login, ls, lsmod, mkdir,
+        modinfo, modprobe, mount, mv, netstat, nslookup, ntpd, ping,
+        poweroff, ps, pwd, reboot, rm, rmmod, route, sed, sh, sleep, sort,
+        split, stty, tail, telnet, telnetd, test, time, tr, traceroute,
+        udhcpc, umount, uname, vi, wc, wget</pre>
 <p>
 </p>
 <hr />
 <h1><a name="command_descriptions">COMMAND DESCRIPTIONS</a></h1>
 <dl>
+<dt><strong><a name="awk" class="item"><strong>awk</strong></a></strong></dt>
+
+<dd>
+<p>awk [OPTIONS] [AWK_PROGRAM] [FILE]...</p>
+<p>Options:</p>
+<pre>
+        -v VAR=VAL      Set variable
+        -F SEP          Use SEP as field separator
+        -f FILE         Read program from FILE</pre>
+</dd>
+<dt><strong><a name="cal" class="item"><strong>cal</strong></a></strong></dt>
+
+<dd>
+<p>cal [-jy] [[MONTH] YEAR]</p>
+<p>Display a calendar</p>
+<p>Options:</p>
+<pre>
+        -j      Use julian dates
+        -y      Display the entire year</pre>
+</dd>
 <dt><strong><a name="cat" class="item"><strong>cat</strong></a></strong></dt>
 
 <dd>
 <p>cat [FILE]...</p>
 <p>Concatenate FILEs and print them to stdout</p>
+</dd>
+<dt><strong><a name="chat" class="item"><strong>chat</strong></a></strong></dt>
+
+<dd>
+<p>chat EXPECT [SEND [EXPECT [SEND...]]]</p>
+<p>Useful for interacting with a modem connected to stdin/stdout.
+A script consists of one or more &quot;expect-send&quot; pairs of strings,
+each pair is a pair of arguments. Example:
+chat '' ATZ OK ATD123456 CONNECT '' ogin: pppuser word: ppppass '~'</p>
 </dd>
 <dt><strong><a name="chmod" class="item"><strong>chmod</strong></a></strong></dt>
 
@@ -185,6 +215,20 @@ Starting interactive shell from boot shell script:</p>
 <pre>
         setsid cttyhack sh</pre>
 </dd>
+<dt><strong><a name="cut" class="item"><strong>cut</strong></a></strong></dt>
+
+<dd>
+<p>cut [OPTIONS] [FILE]...</p>
+<p>Print selected fields from each input FILE to stdout</p>
+<p>Options:</p>
+<pre>
+        -b LIST Output only bytes from LIST
+        -c LIST Output only characters from LIST
+        -d CHAR Use CHAR instead of tab as the field delimiter
+        -s      Output only the lines containing delimiter
+        -f N    Print only these fields
+        -n      Ignored</pre>
+</dd>
 <dt><strong><a name="date" class="item"><strong>date</strong></a></strong></dt>
 
 <dd>
@@ -223,6 +267,17 @@ Starting interactive shell from boot shell script:</p>
         -a      Show all filesystems
         -i      Inodes
         -B SIZE Blocksize</pre>
+</dd>
+<dt><strong><a name="dmesg" class="item"><strong>dmesg</strong></a></strong></dt>
+
+<dd>
+<p>dmesg [-c] [-n LEVEL] [-s SIZE]</p>
+<p>Print or control the kernel ring buffer</p>
+<p>Options:</p>
+<pre>
+        -c              Clear ring buffer after printing
+        -n LEVEL        Set console logging level
+        -s SIZE         Buffer size</pre>
 </dd>
 <dt><strong><a name="echo" class="item"><strong>echo</strong></a></strong></dt>
 
@@ -330,6 +385,35 @@ It also can be ran from tcpsvd:</p>
         -t SEC          Terminate after SEC if no username is read
         -I INITSTR      Send INITSTR before anything else
         -H HOST         Log HOST into the utmp file as the hostname</pre>
+</dd>
+<dt><strong><a name="grep" class="item"><strong>grep</strong></a></strong></dt>
+
+<dd>
+<p>grep [-HhnlLoqvsriwFE] [-m N] [-A/B/C N] PATTERN/-e PATTERN.../-f FILE [FILE]...</p>
+<p>Search for PATTERN in FILEs (or stdin)</p>
+<p>Options:</p>
+<pre>
+        -H      Add 'filename:' prefix
+        -h      Do not add 'filename:' prefix
+        -n      Add 'line_no:' prefix
+        -l      Show only names of files that match
+        -L      Show only names of files that don't match
+        -c      Show only count of matching lines
+        -o      Show only the matching part of line
+        -q      Quiet. Return 0 if PATTERN is found, 1 otherwise
+        -v      Select non-matching lines
+        -s      Suppress open and read errors
+        -r      Recurse
+        -i      Ignore case
+        -w      Match whole words only
+        -F      PATTERN is a literal (not regexp)
+        -E      PATTERN is an extended regexp
+        -m N    Match up to N times per file
+        -A N    Print N lines of trailing context
+        -B N    Print N lines of leading context
+        -C N    Same as '-A N -B N'
+        -e PTRN Pattern to match
+        -f FILE Read pattern from file</pre>
 </dd>
 <dt><strong><a name="halt" class="item"><strong>halt</strong></a></strong></dt>
 
@@ -663,11 +747,60 @@ optionally using a specified DNS server</p>
         -e      Display other/more information
         -A inet Select address family</pre>
 </dd>
+<dt><strong><a name="sed" class="item"><strong>sed</strong></a></strong></dt>
+
+<dd>
+<p>sed [-efinr] SED_CMD [FILE]...</p>
+<p>Options:</p>
+<pre>
+        -e CMD  Add CMD to sed commands to be executed
+        -f FILE Add FILE contents to sed commands to be executed
+        -i      Edit files in-place (else sends result to stdout)
+        -n      Suppress automatic printing of pattern space
+        -r      Use extended regex syntax</pre>
+<p>If no -e or -f, the first non-option argument is the sed command string.
+Remaining arguments are input files (stdin if none).</p>
+</dd>
 <dt><strong><a name="sleep" class="item"><strong>sleep</strong></a></strong></dt>
 
 <dd>
 <p>sleep N</p>
 <p>Pause for N seconds</p>
+</dd>
+<dt><strong><a name="sort" class="item"><strong>sort</strong></a></strong></dt>
+
+<dd>
+<p>sort [-nrugMcszbdfimSTokt] [-o FILE] [-k start[.offset][opts][,end[.offset][opts]] [-t CHAR] [FILE]...</p>
+<p>Sort lines of text</p>
+<p>Options:</p>
+<pre>
+        -b      Ignore leading blanks
+        -c      Check whether input is sorted
+        -d      Dictionary order (blank or alphanumeric only)
+        -f      Ignore case
+        -g      General numerical sort
+        -i      Ignore unprintable characters
+        -k      Sort key
+        -M      Sort month
+        -n      Sort numbers
+        -o      Output to file
+        -k      Sort by key
+        -t CHAR Key separator
+        -r      Reverse sort order
+        -s      Stable (don't sort ties alphabetically)
+        -u      Suppress duplicate lines
+        -z      Lines are terminated by NUL, not newline
+        -mST    Ignored for GNU compatibility</pre>
+</dd>
+<dt><strong><a name="split" class="item"><strong>split</strong></a></strong></dt>
+
+<dd>
+<p>split [OPTIONS] [INPUT [PREFIX]]</p>
+<p>Options:</p>
+<pre>
+        -b n[k|m]       Split by bytes
+        -l n            Split by lines
+        -a n            Use n letters as suffix</pre>
 </dd>
 <dt><strong><a name="stty" class="item"><strong>stty</strong></a></strong></dt>
 
@@ -681,6 +814,24 @@ and deviations from stty sane</p>
         -a              Print all current settings in human-readable form
         -g              Print in stty-readable form
         [SETTING]       See manpage</pre>
+</dd>
+<dt><strong><a name="tail" class="item"><strong>tail</strong></a></strong></dt>
+
+<dd>
+<p>tail [OPTIONS] [FILE]...</p>
+<p>Print last 10 lines of each FILE (or stdin) to stdout.
+With more than one FILE, precede each with a filename header.</p>
+<p>Options:</p>
+<pre>
+        -f              Print data as file grows
+        -s SECONDS      Wait SECONDS between reads with -f
+        -n N[kbm]       Print last N lines
+        -c N[kbm]       Print last N bytes
+        -q              Never print headers
+        -v              Always print headers</pre>
+<p>N may be suffixed by k (x1024), b (x512), or m (x1024^2).
+If N starts with a '+', output begins with the Nth item from the start
+of each file, not from the end.</p>
 </dd>
 <dt><strong><a name="telnet" class="item"><strong>telnet</strong></a></strong></dt>
 
@@ -723,6 +874,17 @@ depending on logical value of EXPRESSION</p>
 <p>Options:</p>
 <pre>
         -v      Verbose</pre>
+</dd>
+<dt><strong><a name="tr" class="item"><strong>tr</strong></a></strong></dt>
+
+<dd>
+<p>tr [-cds] STRING1 [STRING2]</p>
+<p>Translate, squeeze, or delete characters from stdin, writing to stdout</p>
+<p>Options:</p>
+<pre>
+        -c      Take complement of STRING1
+        -d      Delete input characters coded STRING1
+        -s      Squeeze multiple output characters of STRING2 into one character</pre>
 </dd>
 <dt><strong><a name="traceroute" class="item"><strong>traceroute</strong></a></strong></dt>
 
@@ -788,6 +950,21 @@ depending on logical value of EXPRESSION</p>
         -r      Try to remount devices as read-only if mount is busy
         -l      Lazy umount (detach filesystem)
         -f      Force umount (i.e., unreachable NFS server)</pre>
+</dd>
+<dt><strong><a name="uname" class="item"><strong>uname</strong></a></strong></dt>
+
+<dd>
+<p>uname [-amnrspv]</p>
+<p>Print system information</p>
+<p>Options:</p>
+<pre>
+        -a      Print all
+        -m      The machine (hardware) type
+        -n      Hostname
+        -r      OS release
+        -s      OS name (default)
+        -p      Processor type
+        -v      OS version</pre>
 </dd>
 <dt><strong><a name="vi" class="item"><strong>vi</strong></a></strong></dt>
 

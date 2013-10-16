@@ -29,7 +29,6 @@ __attribute__((section("__versions"))) = {
 	{ 0xa145aa70, "i2c_register_driver" },
 	{ 0x328a05f1, "strncpy" },
 	{ 0x97255bdf, "strlen" },
-	{ 0x3c2c5af5, "sprintf" },
 	{ 0xf96c3baf, "i2c_master_recv" },
 	{ 0xd7cf1d7e, "i2c_master_send" },
 	{ 0xf9a475af, "module_put" },
@@ -45,4 +44,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "DD2E29CCDBED2622B1ED028");
+MODULE_INFO(srcversion, "458F4B7CC43FF8C78953811");

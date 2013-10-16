@@ -16,10 +16,10 @@
 /*
  * Driver verbosity level: 0->silent; >0->verbose
  */
-static int hih6130_debug = 0;
+static int hih6130_debug = 1;
 
 #define DRIVER_NAME 	"humidity"
-#define I2C_ADDRESS	0x27
+#define I2C_ADDRESS	0x68
 
 //i2c specific fields:
 static struct i2c_client *test_i2c_client;
@@ -71,7 +71,51 @@ static ssize_t hih6130_read(struct file *filp, char *buffer,
 		goto Done;
 	}
 
+	//dat[0]=0x6B;
+	dat[0]=0x75;
+	if(i2c_master_send(test_i2c_client, dat,1)<0)
+		printk(KERN_ALERT "%s: error writing to i2c device.\n", __func__);
 
+	dat[0]=0x00;
+	if(i2c_master_recv(test_i2c_client, dat, 1)<0)
+		printk(KERN_ALERT "%s: error reading from i2c device.\n", __func__);
+
+
+	printk("%02X\n", dat[0]);
+
+	dat[0]=0x6B;
+	dat[1]=0x00;
+	if(i2c_master_send(test_i2c_client, dat,2)<0)
+		printk(KERN_ALERT "%s: error writing to i2c device.\n", __func__);
+
+	dat[0]=0x6C;
+	dat[1]=0x00;
+	if(i2c_master_send(test_i2c_client, dat,2)<0)
+		printk(KERN_ALERT "%s: error writing to i2c device.\n", __func__);
+
+
+
+	dat[0]=0x41;
+	if(i2c_master_send(test_i2c_client, dat,1)<0)
+		printk(KERN_ALERT "%s: error writing to i2c device.\n", __func__);
+
+	dat[0]=0x00;
+	if(i2c_master_recv(test_i2c_client, dat, 1)<0)
+		printk(KERN_ALERT "%s: error reading from i2c device.\n", __func__);
+
+	printk("%02X\n", dat[0]);
+
+	dat[0]=0x42;
+	if(i2c_master_send(test_i2c_client, dat,1)<0)
+		printk(KERN_ALERT "%s: error writing to i2c device.\n", __func__);
+
+	dat[0]=0x00;
+	if(i2c_master_recv(test_i2c_client, dat, 1)<0)
+		printk(KERN_ALERT "%s: error reading from i2c device.\n", __func__);
+
+	printk("%02X\n", dat[0]);
+
+/*
 	if(i2c_master_send(test_i2c_client, dat,0)<0)
 		printk(KERN_ALERT "%s: error writing to i2c device.\n", __func__);
 
@@ -83,7 +127,7 @@ static ssize_t hih6130_read(struct file *filp, char *buffer,
 	d_printk(2, "Hum: %06d Temp: %06d \n", Hum, Temp);
 
 	sprintf(data_str,"%d;%d\n", Hum, Temp);
-
+*/
 	data_end = data_str + strlen(data_str);
 	
 	addr = data_str + *offset;

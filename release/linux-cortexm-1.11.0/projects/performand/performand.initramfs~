@@ -23,7 +23,9 @@ nod /dev/mtdblock2 0600 0 0 b 31 2
 nod /dev/mtdblock3 0600 0 0 b 31 3
 nod /dev/sda 0600 0 0 b 8 0
 nod /dev/sda1 0600 0 0 b 8 1
-nod /dev/i2c-0 0600 0 0 b 8 1
+nod /dev/i2c-0 0666 0 0 c 89 0
+nod /dev/i2c-1 0666 0 0 c 89 1
+nod /dev/i2c-2 0666 0 0 c 89 2
 
 dir /dev/pts 0755 0 0
 nod /dev/ptmx 0666 0 0 c 5 2
@@ -33,6 +35,14 @@ nod /dev/ttyS1 0666 0 0 c 4 65
 nod /dev/ttyS2 0666 0 0 c 4 66
 nod /dev/ttyS3 0666 0 0 c 4 67
 nod /dev/ttyS4 0666 0 0 c 4 68
+
+nod /dev/adc 0666 0 0 c 10 245
+
+nod /dev/mmcblk0 0600 0 0 b 179 0
+nod /dev/mmcblk0p1 0666 0 0 b 179 1
+nod /dev/mmcblk0p2 0666 0 0 b 179 2
+nod /dev/mmcblk0p3 0666 0 0 b 179 3
+nod /dev/mmcblk0p4 0666 0 0 b 179 4
 
 dir /root 0700 0 0
 dir /proc 0755 0 0
@@ -146,6 +156,13 @@ slink /bin/getty busybox 777 0 0
 slink /bin/insmod busybox 777 0 0
 slink /bin/rmmod busybox 777 0 0
 slink /bin/lsmod busybox 777 0 0
+slink /bin/ftpd busybox 777 0 0 
+
+slink /bin/sed busybox 777 0 0 
+slink /bin/tr busybox 777 0 0 
+slink /bin/cut busybox 777 0 0 
+slink /bin/awk busybox 777 0 0
+slink /bin/chat busybox 777 0 0
 
 dir /usr/share 755 0 0
 dir /usr/share/udhcpc 755 0 0
@@ -154,9 +171,26 @@ file /usr/share/udhcpc/default.script ${INSTALL_ROOT}/projects/${SAMPLE}/local/d
 slink /usr/bin/[ ../../bin/busybox 777 0 0
 slink /usr/bin/[[ ../../bin/busybox 777 0 0
 
+file /bin/i2cdump ${INSTALL_ROOT}/projects/${SAMPLE}/i2c-tools-3.1.0/tools/i2cdump 755 0 0
+file /bin/i2cdetect ${INSTALL_ROOT}/projects/${SAMPLE}/i2c-tools-3.1.0/tools/i2cdetect 755 0 0
+file /bin/i2cset ${INSTALL_ROOT}/projects/${SAMPLE}/i2c-tools-3.1.0/tools/i2cset 755 0 0
+file /bin/i2cget ${INSTALL_ROOT}/projects/${SAMPLE}/i2c-tools-3.1.0/tools/i2cget 755 0 0
+
 dir /mnt 755 0 0
+dir /performand 755 0 0
+dir /performand/driver 755 0 0
+dir /performand/apps 755 0 0
 
 file /hih6130.ko ${INSTALL_ROOT}/projects/${SAMPLE}/driver/humidity/hih6130.ko 755 0 0
-file /read_humtemp ${INSTALL_ROOT}/projects/${SAMPLE}/apps/i2capp 755 0 0
+file /read_humtemp ${INSTALL_ROOT}/projects/${SAMPLE}/apps/i2capp/i2capp 755 0 0
+file /batstat ${INSTALL_ROOT}/projects/${SAMPLE}/apps/batstatus/batstatus 755 0 0
+file /monitor_bat.sh ${INSTALL_ROOT}/projects/${SAMPLE}/local/monitor_bat.sh 755 0 0
+file /performand/driver/imu.ko ${INSTALL_ROOT}/projects/${SAMPLE}/driver/imu/imu.ko 755 0 0
+file /performand/apps/gps_daemon ${INSTALL_ROOT}/projects/${SAMPLE}/apps/gps_daemon/gps_daemon 755 0 0
+file /performand/apps/conv_quaternion ${INSTALL_ROOT}/projects/${SAMPLE}/apps/conv_quaternion/conv_quaternion 755 0 0
+file /performand/apps/imu ${INSTALL_ROOT}/projects/${SAMPLE}/apps/mpu9150-cal/imu 755 0 0
+file /performand/apps/imucal ${INSTALL_ROOT}/projects/${SAMPLE}/apps/mpu9150-cal/imucal 755 0 0
 
-nod /dev/humidity 0600 0 0 c 166 0
+nod /dev/imu 0600 0 0 c 168 0
+
+nod /dev/gps 0600 0 0 c 170 0

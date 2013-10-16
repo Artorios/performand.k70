@@ -241,6 +241,7 @@ static long adc_measure(struct kinetis_adc_request *req)
 	volatile struct kinetis_adc_regs *regs;
 
 	mod = req->adc_module;
+
 	if (mod >= N_ADC_MODULES) {
 		rv = -ENODEV;
 		goto out;
@@ -267,7 +268,6 @@ static long adc_measure(struct kinetis_adc_request *req)
 
 	/* Read measurement result */
 	req->result = regs->ra;
-
 	rv = 0;
 unlock:
 	spin_unlock(&adc_modules[mod].lock);
@@ -297,6 +297,7 @@ static long adc_ioctl(
 		/* Copy the request info from user-space */
 		rv = copy_from_user(&adc_req, (const void __user *)arg,
 			sizeof(struct kinetis_adc_request));
+		
 		if (rv != 0) {
 			rv = -EFAULT;
 			break;
@@ -304,6 +305,7 @@ static long adc_ioctl(
 
 		/* Make a synchronous measurement */
 		rv = adc_measure(&adc_req);
+
 		if (rv != 0)
 			break;
 

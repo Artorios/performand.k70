@@ -23,7 +23,7 @@ clean_apps	:
 
 # Edit the line below to modify a set of loadable modules
 # you need to build 
-obj-m		+= hih6130.o
+obj-m		+= imu.o
 
 # Define dependencies for a particular module
 # sample-y	:= some.o

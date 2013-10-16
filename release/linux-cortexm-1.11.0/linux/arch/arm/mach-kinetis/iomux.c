@@ -317,13 +317,38 @@ static const struct kinetis_gpio_pin_config k70som_iomux[] = {
 	 * on the SOM-BSB baseboard. Other baseboards may need different pin
 	 * configurations.
 	 */
-#if 0
+#if 1
 	/* E.9 = GPIO 137: User button (S2) */
-	{{KINETIS_GPIO_PORT_E,  9}, KINETIS_GPIO_CONFIG_PULLUP(1)},
+	//{{KINETIS_GPIO_PORT_E,  9}, KINETIS_GPIO_CONFIG_PULLUP(1)},
 	/* E.11 = GPIO 139: LED DS3 */
-	{{KINETIS_GPIO_PORT_E, 11}, KINETIS_GPIO_CONFIG_MUX(1)},
+	//{{KINETIS_GPIO_PORT_E, 11}, KINETIS_GPIO_CONFIG_MUX(1)},
 	/* E.12 = GPIO 140: LED DS4 */
-	{{KINETIS_GPIO_PORT_E, 12}, KINETIS_GPIO_CONFIG_MUX(1)},
+	//{{KINETIS_GPIO_PORT_E, 12}, KINETIS_GPIO_CONFIG_MUX(1)},
+	
+	//BLE_0_RESET - Gpio35
+	{{KINETIS_GPIO_PORT_B, 3}, KINETIS_GPIO_CONFIG_MUX(1)},
+
+	//Wifi Reset - Gpio38
+	{{KINETIS_GPIO_PORT_B, 6}, KINETIS_GPIO_CONFIG_MUX(1)},
+
+	//Gps Enable -Gpio37
+	{{KINETIS_GPIO_PORT_B, 5}, KINETIS_GPIO_CONFIG_MUX(1)},
+
+	//LED IND 1 - Gpio64
+	{{KINETIS_GPIO_PORT_C, 0}, KINETIS_GPIO_CONFIG_MUX(1)},
+
+	//LED IND 2 - Gpio65
+	{{KINETIS_GPIO_PORT_C, 1}, KINETIS_GPIO_CONFIG_MUX(1)},
+
+	//LED IND 3 - Gpio66
+	{{KINETIS_GPIO_PORT_C, 2}, KINETIS_GPIO_CONFIG_MUX(1)},	
+
+	//Push Button
+	{{KINETIS_GPIO_PORT_E, 26}, KINETIS_GPIO_CONFIG_PULLUP(1)},
+
+	//Battery Charge status
+	{{KINETIS_GPIO_PORT_B, 16}, KINETIS_GPIO_CONFIG_MUX(1)},			
+
 #endif
 #endif /* CONFIG_GPIOLIB */
 
